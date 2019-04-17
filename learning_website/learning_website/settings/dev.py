@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+configPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "db.cfg")
+
+# sys.path 保存了python解释器的搜索包路径
+# print(sys.path)
+# 添加apps目录到搜包路径中
+sys.path.insert(0, os.path.join(BASE_DIR, 'learning_website/apps'))
 
 
 # Quick-start development settings - unsuitable for production
