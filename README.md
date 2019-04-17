@@ -68,4 +68,5 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 ```
 5. 创建新应用方式变为进入到apps目录下 python3 ../../manage.py startapp [应用名称]
 6. 项目现用dev.py配置文件并已开启debug，可以执行命令直接运行服务
-7.由于项目结构重构及python动态语言的特点，在IDE显示中部分模块显示报红，但实际运行并无影响。只需要将django项目（后端项目文件夹非git仓库文件夹右键Mark Directory As -- Sources Root 
+7.由于项目结构重构及python动态语言的特点，在IDE显示中部分模块显示报红，但实际运行并无影响。只需要将django项目（后端项目文件夹非git仓库文件夹右键Mark Directory As -- Sources Root)
+apps文件夹同理 
