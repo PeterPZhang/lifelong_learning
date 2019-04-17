@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import configparser
 import os
 import sys
 
@@ -22,7 +23,6 @@ configPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "db.cfg")
 # 添加apps目录到搜包路径中
 sys.path.insert(0, os.path.join(BASE_DIR, 'learning_website/apps'))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -33,7 +33,6 @@ SECRET_KEY = 'cw^*0vbc#)#ro(er(gu(w5m@!xy6f-*zji2q5tq4zyd!n8=t7r'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,17 +75,30 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'learning_website.wsgi.application'
 
+# 读取配置文件中数据库信息
+
+cp = configparser.ConfigParser()
+cp.read(configPath)
+host = cp.get('mysql_dev', 'HOST')
+user = cp.get('mysql_dev', 'USER')
+passwd = cp.get('mysql_dev', 'PWD')
+db = cp.get('mysql_dev', 'DB')
+port = cp.getint('mysql_dev', 'PORT')
+charset = cp.get('mysql_dev', 'CHARSET')
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': db,
+        'USER': user,
+        'PASSWORD': passwd,
+        'HOST': host,
+        'PORT': port,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -106,20 +118,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'  # zh-hans为中文编码
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'  # 国际时区改成中国时区
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
